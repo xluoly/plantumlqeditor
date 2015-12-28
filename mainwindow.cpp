@@ -87,6 +87,7 @@ MainWindow::MainWindow(QWidget *parent)
                    .arg("")
                    .arg(qApp->applicationName())
                    );
+    setWindowIcon(QIcon(":/icon.svg"));
 
     m_cache = new FileCache(0, this);
 
