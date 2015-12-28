@@ -10,6 +10,13 @@ TEMPLATE = app
 
 include(thirdparty/qtsingleapplication/src/qtsingleapplication.pri)
 
+# build dir
+BUILD_DIR   = .build
+OBJECTS_DIR = $$BUILD_DIR
+MOC_DIR     = $$BUILD_DIR
+RCC_DIR     = $$BUILD_DIR
+UI_DIR      = $$BUILD_DIR
+
 SOURCES += \
     textedit.cpp \
     main.cpp\

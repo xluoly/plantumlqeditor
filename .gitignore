@@ -1,3 +1,5 @@
 *.user
 *-build-*
 thirdparty/gmock-*
+.build/
+Makefile
