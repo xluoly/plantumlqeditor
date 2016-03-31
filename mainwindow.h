@@ -52,6 +52,7 @@ private slots:
     void onSaveAsActionTriggered();
     void onExportImageActionTriggered();
     void onExportAsImageActionTriggered();
+    void onReloadDocumentActionTriggered();
     void onRecentDocumentsActionTriggered(const QString& path);
     void onAssistanItemDoubleClicked(QListWidgetItem* item);
     void onSingleApplicationReceivedMessage(const QString& message);
@@ -72,6 +73,7 @@ private:
     void writeSettings();
     bool saveDocument(const QString& name);
     void exportImage(const QString& name);
+    void reloadDocument();
     QString makeKeyForDocument(QByteArray current_document);
 
     void createActions();
@@ -148,6 +150,7 @@ private:
     QAction *m_saveAsDocumentAction;
     QAction *m_exportImageAction;
     QAction *m_exportAsImageAction;
+    QAction *m_reloadDocumentAction;
     QAction *m_quitAction;
 
     QMenu *m_editMenu;

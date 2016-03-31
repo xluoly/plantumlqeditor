@@ -434,6 +434,11 @@ void MainWindow::onExportAsImageActionTriggered()
     exportImage("");
 }
 
+void MainWindow::onReloadDocumentActionTriggered()
+{
+    openDocument(m_documentPath);
+}
+
 void MainWindow::onRecentDocumentsActionTriggered(const QString &path)
 {
     openDocument(path);
@@ -679,7 +684,7 @@ void MainWindow::openDocument(const QString &name)
         tmp_name = QFileDialog::getOpenFileName(this,
                                                 tr("Select a file to open"),
                                                 m_lastDir,
-                                                "PlantUML (*.plantuml);; All Files (*.*)"
+                                                "*.uml (*.uml);; *.plantuml (*.plantuml);; All Files (*.*)"
                                                 );
         if (tmp_name.isEmpty()) {
             return;
@@ -712,7 +717,7 @@ bool MainWindow::saveDocument(const QString &name)
         file_path = QFileDialog::getSaveFileName(this,
                                                 tr("Select where to store the document"),
                                                 m_lastDir,
-                                                "PlantUML (*.plantuml);; All Files (*.*)"
+                                                "*.uml (*.uml);; *.plantuml (*.plantuml);; All Files (*.*)"
                                                 );
         if (file_path.isEmpty()) {
             return false;
@@ -791,6 +796,10 @@ void MainWindow::exportImage(const QString &name)
     m_exportPathLabel->setEnabled(true);
 }
 
+void MainWindow::reloadDocument()
+{
+}
+
 void MainWindow::createActions()
 {
     // File menu
@@ -809,6 +818,10 @@ void MainWindow::createActions()
     m_saveAsDocumentAction = new QAction(QIcon::fromTheme("document-save-as"), tr("Save As..."), this);
     m_saveAsDocumentAction->setShortcuts(QKeySequence::SaveAs);
     connect(m_saveAsDocumentAction, SIGNAL(triggered()), this, SLOT(onSaveAsActionTriggered()));
+
+    m_reloadDocumentAction = new QAction(QIcon::fromTheme("document-open-recent"), tr("Reload"), this);
+    m_reloadDocumentAction->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_R);
+    connect(m_reloadDocumentAction, SIGNAL(triggered()), this, SLOT(onReloadDocumentActionTriggered()));
 
     m_exportImageAction = new QAction(EXPORT_TO_MENU_FORMAT_STRING.arg(""), this);
     m_exportImageAction->setShortcut(Qt::CTRL + Qt::Key_E);
@@ -925,6 +938,7 @@ void MainWindow::createMenus()
     m_fileMenu->addAction(m_openDocumentAction);
     m_fileMenu->addAction(m_saveDocumentAction);
     m_fileMenu->addAction(m_saveAsDocumentAction);
+    m_fileMenu->addAction(m_reloadDocumentAction);
     m_fileMenu->addSeparator();
     QMenu *recent_documents_submenu = m_fileMenu->addMenu(tr("Recent Documents"));
     recent_documents_submenu->addActions(m_recentDocuments->actions());
@@ -975,6 +989,7 @@ void MainWindow::createToolBars()
     m_mainToolBar->addAction(m_openDocumentAction);
     m_mainToolBar->addAction(m_saveDocumentAction);
     m_mainToolBar->addAction(m_saveAsDocumentAction);
+    m_mainToolBar->addAction(m_reloadDocumentAction);
     m_mainToolBar->addSeparator();
     m_mainToolBar->addAction(m_showAssistantDockAction);
     m_mainToolBar->addAction(m_showAssistantInfoDockAction);
